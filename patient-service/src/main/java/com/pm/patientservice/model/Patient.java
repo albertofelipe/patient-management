@@ -27,6 +27,9 @@ public class Patient {
     private String email;
 
     @NotNull
+    private String address;
+
+    @NotNull
     private LocalDate dateOfBirth;
 
     @NotNull
