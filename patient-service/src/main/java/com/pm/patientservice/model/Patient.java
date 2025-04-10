@@ -3,7 +3,9 @@ package com.pm.patientservice.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -12,6 +14,8 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Patient {
 
     @Id
@@ -34,4 +38,13 @@ public class Patient {
 
     @NotNull
     private LocalDate registeredDate;
+
+    public Patient(String name, String email, String address, LocalDate dateOfBirth, LocalDate registeredDate) {
+        this.name = name;
+        this.email = email;
+        this.address = address;
+        this.dateOfBirth = dateOfBirth;
+        this.registeredDate = registeredDate;
+    }
+
 }
