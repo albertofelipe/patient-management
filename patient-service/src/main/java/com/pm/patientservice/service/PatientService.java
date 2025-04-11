@@ -2,6 +2,7 @@ package com.pm.patientservice.service;
 
 import com.pm.patientservice.dto.PatientRequestDto;
 import com.pm.patientservice.dto.PatientResponseDto;
+import com.pm.patientservice.exception.EmailAlreadyExistsException;
 import com.pm.patientservice.mapper.PatientMapper;
 import com.pm.patientservice.model.Patient;
 import com.pm.patientservice.repository.PatientRepository;
@@ -27,6 +28,12 @@ public class PatientService {
     }
 
     public PatientResponseDto createPatient(PatientRequestDto requestDto) {
+        if(patientRepository.existsByEmail(requestDto.email())){
+            throw new EmailAlreadyExistsException(
+                    String.format("A patient with email '%s' already exists.", requestDto.email())
+            );
+        }
+
         Patient patient = patientRepository.save(PatientMapper.toModel(requestDto));
 
         return PatientMapper.toDto(patient);
